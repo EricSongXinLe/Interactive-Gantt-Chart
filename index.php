@@ -15,50 +15,52 @@
 		<h2>HomePage</h2>
 	</div>
 	<div id="chart_div" align = 'center'>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script type="text/javascript">
-		google.charts.load('current', {'packages':['gantt']});
-		google.charts.setOnLoadCallback(drawChart);
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+			google.charts.load('current', {'packages':['gantt']});
+			google.charts.setOnLoadCallback(drawChart);
+			function drawChart() {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Task ID');
+			data.addColumn('string', 'Task Name');
+			data.addColumn('string', 'Resource');
+			data.addColumn('date', 'Start Date');
+			data.addColumn('date', 'End Date');
+			data.addColumn('number', 'Duration');
+			data.addColumn('number', 'Percent Complete');
+			data.addColumn('string', 'Dependencies');
 
+			data.addRows([
+				<?php 
+					global $db;
+					$sql = "SELECT * FROM tasks";
+					$stmt = mysqli_query($db,$sql);
+					while($datarows = mysqli_fetch_assoc($stmt)){
+						echo "['" . $datarows['id']. " ','" . $datarows['taskName'] . "'," .'null'. ", new Date(" . $datarows['syy']. "," . $datarows['smm']. "," . $datarows['sdd']. "),
+								new Date(" . $datarows['eyy']. "," . $datarows['emm']. "," . $datarows['edd']. "), ". 'null' . "," . $datarows['percent']. "," .'null'. "],";
+					}
 
-		function drawChart() {
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Task ID');
-		data.addColumn('string', 'Task Name');
-		data.addColumn('string', 'Resource');
-		data.addColumn('date', 'Start Date');
-		data.addColumn('date', 'End Date');
-		data.addColumn('number', 'Duration');
-		data.addColumn('number', 'Percent Complete');
-		data.addColumn('string', 'Dependencies');
+				?>
+			]);
 
-		data.addRows([
-			<?php 
-				global $db;
-				$sql = "SELECT * FROM tasks";
-				$stmt = mysqli_query($db,$sql);
-				while($datarows = mysqli_fetch_assoc($stmt)){
-					echo "['" . $datarows['id']. " ','" . $datarows['taskName'] . "'," .'null'. ", new Date(" . $datarows['syy']. "," . $datarows['smm']. "," . $datarows['sdd']. "),
-							new Date(" . $datarows['eyy']. "," . $datarows['emm']. "," . $datarows['edd']. "), ". 'null' . "," . $datarows['percent']. "," .'null'. "],";
+			var options = {
+				height: 400,
+				width: 1200,
+				gantt: {
+					labelStyle:{
+						fontName: "comic sans ms",
+						fontSize: 15
+					},
+					trackHeight: 80,
+					backgroundColor: '#faead3'
 				}
 
-			?>
-		]);
+			};
 
-		var options = {
-			height: 400,
-			width: 1200,
-			gantt: {
-				trackHeight: 80,
-				backgroundColor: '#faead3'
+			var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+			chart.draw(data, options);
 			}
-
-		};
-
-		var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
-
-		chart.draw(data, options);
-		}
 		</script>
 	</div>
 	<div class="content">

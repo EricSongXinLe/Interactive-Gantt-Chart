@@ -7,7 +7,10 @@ body{
 	background: #faead3;
 	font-family: 'comic sans ms';
 }
-
+.chart_div{
+	width: auto;
+    margin: 0 auto !important;
+}
 .header {
     font-family: 'Courier New Bold';
 	width: 30%;
