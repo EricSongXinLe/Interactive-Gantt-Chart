@@ -14,55 +14,6 @@
 	<div id="header" class="header">
 		<h2>HomePage</h2>
 	</div>
-	<div id="chart_div" align = 'center'>
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-			<script type="text/javascript">
-			google.charts.load('current', {'packages':['gantt']});
-			google.charts.setOnLoadCallback(drawChart);
-			function drawChart() {
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Task ID');
-			data.addColumn('string', 'Task Name');
-			data.addColumn('string', 'Resource');
-			data.addColumn('date', 'Start Date');
-			data.addColumn('date', 'End Date');
-			data.addColumn('number', 'Duration');
-			data.addColumn('number', 'Percent Complete');
-			data.addColumn('string', 'Dependencies');
-
-			data.addRows([
-				<?php 
-					global $db;
-					$sql = "SELECT * FROM tasks";
-					$stmt = mysqli_query($db,$sql);
-					while($datarows = mysqli_fetch_assoc($stmt)){
-						echo "['" . $datarows['id']. " ','" . $datarows['taskName'] . "'," .'null'. ", new Date(" . $datarows['syy']. "," . $datarows['smm']. "," . $datarows['sdd']. "),
-								new Date(" . $datarows['eyy']. "," . $datarows['emm']. "," . $datarows['edd']. "), ". 'null' . "," . $datarows['percent']. "," .'null'. "],";
-					}
-
-				?>
-			]);
-
-			var options = {
-				height: 400,
-				width: 1200,
-				gantt: {
-					labelStyle:{
-						fontName: "comic sans ms",
-						fontSize: 15
-					},
-					trackHeight: 80,
-					backgroundColor: '#faead3'
-				}
-
-			};
-
-			var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
-
-			chart.draw(data, options);
-			}
-		</script>
-	</div>
 	<div class="content">
 		<?php if (isset($_SESSION['success'])): ?>
 			<div class="error success">
@@ -78,7 +29,68 @@
 			<p><a href="index.php?logout='1'" style="color: red;">Logout</a></p>
 		<?php endif ?>
 	</div>
+	<div id="chart_div" align = 'center'>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+			google.charts.load('current', {'packages':['gantt']});
+			google.charts.setOnLoadCallback(drawChart);
+			var chart;
+		    var data;
+			function drawChart() {
+				data = new google.visualization.DataTable();
+				data.addColumn('string', 'Task ID');
+				data.addColumn('string', 'Task Name');
+				data.addColumn('string', 'Resource');
+				data.addColumn('date', 'Start Date');
+				data.addColumn('date', 'End Date');
+				data.addColumn('number', 'Duration');
+				data.addColumn('number', 'Percent Complete');
+				data.addColumn('string', 'Dependencies');
+				data.addRows([
+					<?php 
+						global $db;
+						$sql = "SELECT * FROM tasks";
+						$stmt = mysqli_query($db,$sql);
+						while($datarows = mysqli_fetch_assoc($stmt)){
+							echo "['" . $datarows['id']. " ','" . $datarows['taskName'] . "'," .'null'. ", new Date(" . $datarows['syy']. "," . $datarows['smm']. "," . $datarows['sdd']. "),
+									new Date(" . $datarows['eyy']. "," . $datarows['emm']. "," . $datarows['edd']. "), ". 'null' . "," . $datarows['percent']. "," .'null'. "],";
+						}
 
+					?>
+				]);
+
+				var options = {
+					height: 400,
+					width: 1200,
+					gantt: {
+						criticalPathEnabled: false,
+						labelStyle:{
+							fontName: "comic sans ms",
+							fontSize: 15
+						},
+						trackHeight: 80,
+						backgroundColor: '#faead3'
+					}
+
+				};
+				chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+				chart.draw(data, options);
+				//console.log(data['Wf'][0]['c'][0]);
+			}
+			function getSelected() {
+				var a = chart.getSelection();
+				if(a.length == 0) {
+					return -1;
+				}
+				return data['Wf'][a[0]["row"]]['c'][0]["v"];
+			}
+			
+		</script>
+		
+	</div>
+	<form method = "post" action="index.php">
+		<button type="submit" name="getDetails" class="btn">GetTaskDetails</button>
+	</form>
 	<form method = "post" action="index.php">
 			<?php include('errors.php'); ?>
 			<div class="input-group">
