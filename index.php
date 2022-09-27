@@ -8,6 +8,7 @@
 <head>
 	<title>ClubManagementSystem</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	
@@ -78,56 +79,235 @@
 				//console.log(data['Wf'][0]['c'][0]);
 			}
 			function getSelected() {
+				
+			 
 				var a = chart.getSelection();
 				if(a.length == 0) {
 					return -1;
 				}
+				
+				
 				return data['Wf'][a[0]["row"]]['c'][0]["v"];
 			}
+			//获取任务
+			function getData(){
+				var id=getSelected();
+				if(id==-1){
+					alert('Please Select a Project!');
+					return;
+				}
+				//ajax无法使用就直接跳到详情页面
+				window.location.href ='detail.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>";
+				return;
+				
+				/* var json = {
+				   id: id,
+				   option: 'getdata'				    
+				 };
+				 //原生ajax
+				 json = (function(obj){ // 转成post需要的字符串.
+				   var str = "";
+				   for(var prop in obj){
+					 str += prop + "=" + obj[prop] + "&"
+				   }
+				   return str;
+				 })(json);
+				 var xhr = new XMLHttpRequest();
+				 xhr.open("POST", "dataservice.php", true);
+				 xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				 xhr.onreadystatechange = function(){
+				   var XMLHttpReq = xhr;
+				   if (XMLHttpReq.readyState == 4) {
+					 if (XMLHttpReq.status == 200) {					   
+					   //JSON.parse(this.responseText);
+					   var jsonObj = eval( '(' + this.responseText + ')' );  // eval();方法
+						if(jsonObj.code>0){
+							alert(jsonObj.msg );
+						}else{
+							if(jsonObj.total){
+								$('#taskid').val(jsonObj.data.id);
+								$('#taskName').val(jsonObj.data.taskName);
+								$('#syy').val(jsonObj.data.syy);
+								$('#smm').val(jsonObj.data.smm);
+								$('#sdd').val(jsonObj.data.sdd);
+								$('#eyy').val(jsonObj.data.eyy);
+								$('#emm').val(jsonObj.data.emm);
+								$('#edd').val(jsonObj.data.edd);
+								$('#percent').val(jsonObj.data.percent);
+								$("#addbtn").hide();
+								$("#upbtn").show();
+								$("#delbtn").show();	
+								$("#gottask").show();
+								
+							}else{
+								alert('数据获取失败');
+							}
+							
+						}
+					 }
+				   }
+				 }
+				 xhr.send(json);*/
+			}
+			 //更新
+			 function updateTask(){				 
+				/*var id=$('#taskid').val();
+				if(!id){
+					alert('请选择一条数据');
+					return;
+				}			
+				var json = {
+				        id:id,
+						taskName:$('#taskName').val(),
+						syy:$('#syy').val(),
+						smm:$('#smm').val(),
+						sdd:$('#sdd').val(),
+						eyy:$('#eyy').val(),
+						emm:$('#emm').val(),
+						edd:$('#edd').val(),
+						percent:$('#percent').val(),
+					    option:'updatedata'				    
+				 };
+				 //原生ajax
+				 json = (function(obj){ // 转成post需要的字符串.
+				   var str = "";
+				   for(var prop in obj){
+					 str += prop + "=" + obj[prop] + "&"
+				   }
+				   return str;
+				 })(json);
+				 var xhr = new XMLHttpRequest();
+				 xhr.open("POST", "dataservice.php", true);
+				 xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				 xhr.onreadystatechange = function(){
+				   var XMLHttpReq = xhr;
+				   if (XMLHttpReq.readyState == 4) {
+					 if (XMLHttpReq.status == 200) {					   
+					   //JSON.parse(this.responseText);
+					   var jsonObj = eval( '(' + this.responseText + ')' );  // eval();方法
+					   if(jsonObj.code>0){
+						   alert(jsonObj.msg );
+						}else{					
+							alert('更新成功');
+							window.location.href ='index.php';
+							
+						}
+					 }
+				   }
+				 }
+				 xhr.send(json);
+				 */
+				
+			}
+			 
 			
+		     //删除
+			 function delTask(){
+				 		 
+				/*if (confirm("你确定要执行删除操作码？")) {
+					var id=$('#taskid').val();
+					if(!id){
+						alert('请选择一条数据');
+						return;
+					}	
+					var json = {
+				        id:id,					
+						option:'deldata'		    
+				    };
+					 //原生ajax
+					json = (function(obj){ // 转成post需要的字符串.
+					   var str = "";
+					   for(var prop in obj){
+						 str += prop + "=" + obj[prop] + "&"
+					   }
+					   return str;
+					 })(json);
+					 var xhr = new XMLHttpRequest();
+					 xhr.open("POST", "dataservice.php", true);
+					 xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					 xhr.onreadystatechange = function(){
+					   var XMLHttpReq = xhr;
+					   if (XMLHttpReq.readyState == 4) {
+						 if (XMLHttpReq.status == 200) {					   
+						   //JSON.parse(this.responseText);
+						   var jsonObj = eval( '(' + this.responseText + ')' );  // eval();方法
+						   if(jsonObj.code>0){
+								alert(jsonObj.msg );
+							}else{					
+								alert('删除成功');
+								window.location.href ='index.php';
+								
+							}
+						 }
+					   }
+					 }
+					xhr.send(json);					
+				}
+				else {
+					return;
+				}			*/	
+			}
+			//返回添加页面
+			function goToPostTask(){
+			   window.location.href ='index.php';
+			}
 		</script>
+		
+		
 		
 	</div>
 	<form method = "post" action="index.php">
-		<button type="submit" name="getDetails" class="btn">GetTaskDetails</button>
+		<!--<button type="submit" name="getDetails" class="btn">GetTaskDetails</button>-->
+		<button type="button" name="getDetails" class="btn" onclick="getData()">GetTaskDetails</button>
+
 	</form>
+	
 	<form method = "post" action="index.php">
 			<?php include('errors.php'); ?>
+			<input id="taskid" type = "hidden" name="taskid">
 			<div class="input-group">
 				<label>Please Enter Task Name</label>
-				<input type = "text" name="taskName">
+				<input id="taskName" type = "text" name="taskName">
 			</div>
 			<div class="input-group">
 				<label>Please Enter Start Year</label>
-				<input type = "number" name="syy">
+				<input id="syy" type = "number" name="syy">
 			</div>
 			<div class="input-group">
 				<label>Please Enter Start Month</label>
-				<input type = "number" name="smm">
+				<input id="smm"  type = "number" name="smm">
 			</div>
 			<div class="input-group">
 				<label>Please Enter Start Date</label>
-				<input type = "number" name="sdd">
+				<input id="sdd"  type = "number" name="sdd">
 			</div>
 			<div class="input-group">
 				<label>Please Enter End Year</label>
-				<input type = "number" name="eyy">
+				<input id="eyy" type = "number" name="eyy">
 			</div>
 			<div class="input-group">
 				<label>Please Enter End Month</label>
-				<input type = "number" name="emm">
+				<input id="emm" type = "number" name="emm">
 			</div>
 			<div class="input-group">
 				<label>Please Enter End Date</label>
-				<input type = "number" name="edd">
+				<input id="edd" type = "number" name="edd">
 			</div>
 			<div class="input-group">
 				<label>Please Enter Completed Percentage</label>
-				<input type = "number" name="percent">
+				<input id="percent" type = "number" name="percent">
 			</div>
 			<div class="input-group">
-				<button type="submit" name="postTask" class="btn">PostTask</button>
+				 <button  id="addbtn" type="submit" name="postTask" class="btn">PostTask</button><span>	
+				 <br/>
+			     <span  id="upbtn"    class="btn" onclick="updateTask()" style="display:none;pargin-top:10px;cursor:pointer;">UpdateTask</span>
+				 <span  id="delbtn"   class="btn" onclick="delTask()"    style="display:none;pargin-top:10px;cursor:pointer;">DelTask</span>
+				 <span  id="gottask"  class="btn" onclick="goToPostTask()"    style="display:none;pargin-top:10px;cursor:pointer;">GoToPostTask</span>
 			</div>
-	</form>	
+	      </form>	
+	
+	 
+	
+	 
 </body>
 </html>

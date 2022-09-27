@@ -87,7 +87,7 @@
 		unset($_SESSION['username']);
 		header('location:login.php');
 	}
-	if(isset($_POST['getDetails'])){
+	/*if(isset($_POST['getDetails'])){
 		?>
 		<script type="text/javascript">
 			console.log("Works");
@@ -98,7 +98,7 @@
 		<?php
 			$selected = $_COOKIE['selectedcookie'];
 			echo $selected;
-	}
+	}*/
 	if(isset($_POST['postTask'])){
 		$taskName = $_POST['taskName'];
 		$syy = $_POST['syy'];
