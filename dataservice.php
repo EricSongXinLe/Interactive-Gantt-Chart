@@ -12,12 +12,12 @@
 			case 'getdata':
 				$id=$_POST['id'];
 				if(!$id){
-					echo json_encode(array('code'=>1,'msg'=>'参数不能为空','data'=>''));
+					echo json_encode(array('code'=>1,'msg'=>'no id','data'=>''));
 					exit;
 				}
 				 $row=[];
 				 $sql = "SELECT * FROM tasks WHERE id={$id} limit 1";
-				 $result = $db->query($sql);
+				 $result = $db->query($sql);=
 				 $total=$result->num_rows;
 				if ($result->num_rows > 0) {			 
 					// 输出数据				
