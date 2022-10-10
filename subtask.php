@@ -2,17 +2,18 @@
 	if(empty($_SESSION['username'])){
 		header('location:login.php');
 	}
+	$id=$_GET['id'];
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ClubManagementSystem</title>
+	<title>TaskManagementSystem</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	
 	<div id="header" class="header">
-		<h2>HomePage</h2>
+		<h2>SubTasks</h2>
 	</div>
 	<div class="content">
 		<?php if (isset($_SESSION['success'])): ?>
@@ -49,10 +50,10 @@
 				data.addRows([
 					<?php 
 						global $db;
-						$sql = "SELECT * FROM tasks";
+						$sql = "SELECT * FROM subtasks";
 						$stmt = mysqli_query($db,$sql);
 						while($datarows = mysqli_fetch_assoc($stmt)){
-							echo "['" . $datarows['id']. " ','" . $datarows['taskName'] . "'," .'null'. ", new Date(" . $datarows['startYear']. "," . $datarows['startMonth']. "," . $datarows['startDate']. "),
+							echo "['" . $datarows['id']. " ','" . $datarows['subTaskName'] . "'," .'null'. ", new Date(" . $datarows['startYear']. "," . $datarows['startMonth']. "," . $datarows['startDate']. "),
 									new Date(" . $datarows['endYear']. "," . $datarows['endMonth']. "," . $datarows['endDate']. "), ". 'null' . "," . $datarows['percent']. "," .'null'. "],";
 						}
 
@@ -75,11 +76,8 @@
 				};
 				chart = new google.visualization.Gantt(document.getElementById('chart_div'));
 				chart.draw(data, options);
-				//console.log(data['Wf'][0]['c'][0]);
 			}
 			function getSelected() {
-				
-			 
 				var a = chart.getSelection();
 				if(a.length == 0) {
 					return -1;
@@ -88,19 +86,16 @@
 				
 				return data['Wf'][a[0]["row"]]['c'][0]["v"];
 			}
-			//获取任务
 			function getData(){
 				var id=getSelected();
 				if(id==-1){
 					alert('Please Select a Project!');
 					return;
 				}
-				//ajax无法使用就直接跳到详情页面
-				window.location.href ='detail.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>";
+				window.location.href ='subdetail.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>";
 				return;
 				
 			}
-			 //更新
 			function goToPostTask(){
 			   window.location.href ='index.php';
 			}
@@ -110,17 +105,16 @@
 		
 	</div>
 	<form method = "post" action="index.php">
-		<!--<button type="submit" name="getDetails" class="btn">GetTaskDetails</button>-->
-		<button type="button" name="getDetails" class="btn" onclick="getData()">GetTaskDetails</button>
+		<button type="button" name="getDetails" class="btn" onclick="getData()">GetSubTaskDetails</button>
 
 	</form>
 	
-	<form method = "post" action="index.php">
+	<form method = "post" action="subtask.php">
 			<?php include('errors.php'); ?>
-			<input id="taskid" type = "hidden" name="taskid">
+			<input id="taskid" type = "hidden" name="taskid" value=<?php echo $id ?>>
 			<div class="input-group">
 				<label>Please Enter Task Name</label>
-				<input id="taskName" type = "text" name="taskName">
+				<input id="subTaskName" type = "text" name="subTaskName">
 			</div>
 			<div class="input-group">
 				<label>Please Enter Start Year</label>
@@ -150,22 +144,8 @@
 				<label>Please Enter Completed Percentage</label>
 				<input id="percent" type = "number" name="percent">
 			</div>
-			
-				<?php
-					$findusers = "SELECT * FROM users";
-					$findusersresult = $db->query($findusers);
-					//echo($foundusers);
-					while($row = $findusersresult->fetch_assoc()){
-					?>
-					<div>
-						<input type="checkbox" name="selectedPerson[]" value = <?php echo $row["id"]?>> <?php echo $row["username"]?></input>
-					</div>
-            <?php
-            	}
-				?>
-			
 			<div class="input-group">
-				 <button  id="addbtn" type="submit" name="postTask" class="btn">PostTask</button><span>	
+				 <button  id="addbtn" type="submit" name="postSubTask" class="btn">PostSubTask</button><span>	
 			</div>
 	      </form>	
 	

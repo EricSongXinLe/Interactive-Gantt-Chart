@@ -6,12 +6,12 @@
 	$password_1 = null;
 	$password_2 = null;
 	$taskName = "";
-	$syy=null;
-	$smm=null;
-	$sdd=null;
-	$eyy=null;
-	$emm=null;
-	$edd=null;
+	$startYear=null;
+	$startMonth=null;
+	$startDate=null;
+	$endYear=null;
+	$endMonth=null;
+	$endDate=null;
 	$percent = 0;
 
 	//connect to DB
@@ -101,39 +101,92 @@
 	}*/
 	if(isset($_POST['postTask'])){
 		$taskName = $_POST['taskName'];
-		$syy = $_POST['syy'];
-		$smm = $_POST['smm'];
-		$sdd = $_POST['smm'];
-		$eyy = $_POST['eyy'];
-		$emm = $_POST['emm'];
-		$edd = $_POST['edd'];
+		$startYear = $_POST['startYear'];
+		$startMonth = $_POST['startMonth'];
+		$startDate = $_POST['startDate'];
+		$endYear = $_POST['endYear'];
+		$endMonth = $_POST['endMonth'];
+		$endDate = $_POST['endDate'];
 		$percent = $_POST['percent'];
 		if (empty($taskName)){
 			array_push($errors,"Task name is required");
 		}
-		if (empty($syy)){
+		if (empty($startYear)){
 			array_push($errors,"Start Year is required");
 		}
-		if (empty($smm)){
+		if (empty($startMonth)){
 			array_push($errors,"Start Month is required");
 		}
-		if (empty($sdd)){
+		if (empty($startDate)){
 			array_push($errors,"Start Date is required");
 		}
-		if (empty($eyy)){
+		if (empty($endYear)){
 			array_push($errors,"End Year is required");
 		}
-		if (empty($emm)){
+		if (empty($endMonth)){
 			array_push($errors,"End Month is required");
 		}
-		if (empty($edd)){
+		if (empty($endDate)){
 			array_push($errors,"End Date is required");
 		}
 		if (empty($percent)){
 			$percent = 0;
 		}
 		if(count($errors)==0){
-			$sql = "INSERT INTO tasks (taskName,syy,smm,sdd,eyy,emm,edd,percent) VALUES ('$taskName', '$syy', '$smm', '$sdd','$eyy','$emm','$edd','$percent')";
+			$sql = "INSERT INTO tasks (taskName,startYear,startMonth,startDate,endYear,endMonth,endDate,percent) VALUES ('$taskName', '$startYear', '$startMonth', '$startDate','$endYear','$endMonth','$endDate','$percent')";
+			$query = mysqli_query($db,$sql);
+			if (false===$query) {
+				printf("error: %s\n", mysqli_error($db));
+			}
+			$getTaskID = "SELECT max(id) as taskID FROM tasks";
+			$query = $db->query($getTaskID);
+			$row = $query->fetch_assoc();
+			$currentID = $row["taskID"];
+			foreach ($_POST['selectedPerson'] as $i){
+				$sql = "INSERT INTO usertask (userid,taskid) VALUES ($i,$currentID)";
+				$query = mysqli_query($db,$sql);
+				if (false===$query) {
+					printf("error: %s\n", mysqli_error($db));
+				}
+			}
+		}
+	}
+	if(isset($_POST['postSubTask'])){
+		$subTaskName = $_POST['subTaskName'];
+		$startYear = $_POST['startYear'];
+		$startMonth = $_POST['startMonth'];
+		$startDate = $_POST['startDate'];
+		$endYear = $_POST['endYear'];
+		$endMonth = $_POST['endMonth'];
+		$endDate = $_POST['endDate'];
+		$percent = $_POST['percent'];
+		$id = $_POST['taskid'];
+		if (empty($subTaskName)){
+			array_push($errors,"Subtask name is required");
+		}
+		if (empty($startYear)){
+			array_push($errors,"Start Year is required");
+		}
+		if (empty($startMonth)){
+			array_push($errors,"Start Month is required");
+		}
+		if (empty($startDate)){
+			array_push($errors,"Start Date is required");
+		}
+		if (empty($endYear)){
+			array_push($errors,"End Year is required");
+		}
+		if (empty($endMonth)){
+			array_push($errors,"End Month is required");
+		}
+		if (empty($endDate)){
+			array_push($errors,"End Date is required");
+		}
+		if (empty($percent)){
+			$percent = 0;
+		}
+		if(count($errors)==0){
+			$sql = "INSERT INTO subtasks (subTaskName,startYear,startMonth,startDate,endYear,endMonth,endDate,taskid,percent) VALUES ('$subTaskName', $startYear, $startMonth, $startDate,$endYear,$endMonth,$endDate,$id, $percent)";
 			$query = mysqli_query($db,$sql);
 			if (false===$query) {
 				printf("error: %s\n", mysqli_error($db));

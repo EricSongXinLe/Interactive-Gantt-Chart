@@ -29,17 +29,16 @@
 	}
 	if(isset($_GET)){
 		 $row=[];
-		 $sql = "SELECT * FROM tasks WHERE id={$id} limit 1";
+		 $sql = "SELECT * FROM subtasks WHERE id={$id} limit 1";
 		 $result = $db->query($sql);
 		 $total=$result->num_rows;
-		 if ($result->num_rows > 0) {			 
-			// 输出数据				
+		 if ($result->num_rows > 0) {			 				
 			$row = $result->fetch_assoc();				 
 		}
 	}
 	if(isset($_POST['UpdateTask'])){	
                 $id=$_POST['taskid'];	
-				$taskName = $_POST['taskName'];
+				$subTaskName = $_POST['subTaskName'];
 				$startYear = $_POST['startYear'];
 				$startMonth = $_POST['startMonth'];
 				$startDate = $_POST['startDate'];
@@ -47,7 +46,7 @@
 				$endMonth = $_POST['endMonth'];
 				$endDate = $_POST['endDate'];
 				$percent = $_POST['percent'];
-				if (empty($taskName)){
+				if (empty($subTaskName)){
 					array_push($errors,"Task name is required");
 				}
 				if (empty($startYear)){
@@ -72,22 +71,13 @@
 					$percent = 0;
 				}
 				if(count($errors)==0){
-					$sql = "update tasks set taskName='{$taskName}',startYear='{$startYear}',startMonth='{$startMonth}',startDate='{$startDate}',endYear='{$endYear}',endMonth='{$endMonth}',endDate='{$endDate}',percent='{$percent}' where id='{$id}'";
+					$sql = "update subtasks set subTaskName='{$subTaskName}',startYear='{$startYear}',startMonth='{$startMonth}',startDate='{$startDate}',endYear='{$endYear}',endMonth='{$endMonth}',endDate='{$endDate}',percent='{$percent}' where id='{$id}'";
 					$query = mysqli_query($db,$sql);
-					$sql = "delete from  usertask where taskID='{$id}'";
-					$query = mysqli_query($db,$sql);
-					foreach ($_POST['selectedPerson'] as $i){
-						$sql = "INSERT INTO usertask (userid,taskid) VALUES ($i,$id)";
-						$query = mysqli_query($db,$sql);
-						if (false===$query) {
-							printf("error: %s\n", mysqli_error($db));
-						}
-					}
 					if (false===$query) {
 						 array_push($errors,"UpdateFailed");
 						 
 					}else{					
-						header('location:detail.php?id='.$id.'&username='.$_SESSION["username"]);	
+						header('location:subdetail.php?id='.$id.'&username='.$_SESSION["username"]);	
 					}
 				}
 						
@@ -95,7 +85,7 @@
 	}
 	if(isset($_POST['delTask'])){
 			   $id=$_POST['taskid'];	
-				$sql = "delete from  tasks where id='{$id}'";
+				$sql = "delete from subTasks where id='{$id}'";
 				$query = mysqli_query($db,$sql);
 				if (false===$query) {				
 					printf("error: %s\n", mysqli_error($db));
@@ -137,9 +127,11 @@
 			<p>Welcome, <strong><?php echo $_SESSION['username']; ?></strong> !</p>
 			<p><a href="index.php?logout='1'" style="color: red;">Logout</a></p>
 		<?php endif ?>
-		<a href = "subtask.php?id=<?php echo $id?>"><button    type="submit" name="subTask" class="btn">View subtasks</button></a>
 	</div>
-	<form method = "post" action="detail.php?id=<?php echo $id;?>&username=$_SESSION['username']">
+	
+
+	
+	<form method = "post" action="subdetail.php?id=<?php echo $id;?>&username=$_SESSION['username']">
 			<?php include('errors.php'); ?>
 			<div class="input-group">
 				<label>ID</label>
@@ -148,8 +140,8 @@
 			<input id="taskid" type = "hidden" value="<?php echo $row['id'];?>" name="taskid">
 			<input  type = "hidden" value="<?php echo $_SESSION["username"];?>" name="username">
 			<div class="input-group">
-				<label>Please Enter Task Name</label>
-				<input id="taskName" type = "text" value="<?php echo $row['taskName'];?>" name="taskName">
+				<label>Please Enter Subtask Name</label>
+				<input id="subTaskName" type = "text" value="<?php echo $row['subTaskName'];?>" name="subTaskName">
 			</div>
 			<div class="input-group">
 				<label>Please Enter Start Year</label>
@@ -179,34 +171,12 @@
 				<label>Please Enter Completed Percentage</label>
 				<input id="percent" type = "number" value="<?php echo $row['percent'];?>" name="percent">
 			</div>
-			<?php
-			$checked = "SELECT users.*  from users,tasks,usertask where users.id = usertask.userid and tasks.id = usertask.taskid and tasks.id = {$id}";
-			$findusers = "SELECT * FROM users";
-			$checkedResult = $db->query($checked);
-			$selected = [];
-			while($row2 = $checkedResult->fetch_assoc()){
-				array_push($selected,$row2["id"]);
-			}
-			$checkedUserID = [];
-			foreach ($selected as $key => $value){
-				array_push($checkedUserID,$value);
-			}
-			$findusersresult = $db->query($findusers);
-			//print_r($checkedUserID);
-			while($row = $findusersresult->fetch_assoc()){
-				//echo $row["id"];
-				//echo (in_array($row["id"],$checkedUserID));
-				?>
-				<div>
-					<input type="checkbox" <?php if(in_array($row["id"],$checkedUserID)){echo 'checked ';}?>name="selectedPerson[]" value = <?php echo $row["id"]?>><?php echo $row["username"]?></input>
-				</div>
-			<?php
-			}
-			?>
 			<div class="input-group">
 				<button    type="submit" name="UpdateTask" class="btn">UpdateTask</button><span>	
 				<button    type="submit" name="delTask" class="btn">DelTask</button><span>	
 				<button    type="submit" name="goIndex" class="btn">Back</button><span>	
+				 
+				 
 			</div>
 	      </form>	
 </body>
