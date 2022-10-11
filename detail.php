@@ -137,7 +137,9 @@
 			<p>Welcome, <strong><?php echo $_SESSION['username']; ?></strong> !</p>
 			<p><a href="index.php?logout='1'" style="color: red;">Logout</a></p>
 		<?php endif ?>
-		<a href = "subtask.php?id=<?php echo $id?>"><button    type="submit" name="subTask" class="btn">View subtasks</button></a>
+		<div class="navigation-bar">
+			<a href = "subtask.php?id=<?php echo $id?>"><button    type="submit" name="subTask" class="btn">View subtasks</button></a>
+		</div>
 	</div>
 	<form method = "post" action="detail.php?id=<?php echo $id;?>&username=$_SESSION['username']">
 			<?php include('errors.php'); ?>
@@ -151,31 +153,31 @@
 				<label>Please Enter Task Name</label>
 				<input id="taskName" type = "text" value="<?php echo $row['taskName'];?>" name="taskName">
 			</div>
-			<div class="input-group">
+			<div class="input-group-Year">
 				<label>Please Enter Start Year</label>
 				<input id="startYear" type = "number" value="<?php echo $row['startYear'];?>" name="startYear">
 			</div>
-			<div class="input-group">
+			<div class="input-group-Month">
 				<label>Please Enter Start Month</label>
 				<input id="startMonth"  type = "number" value="<?php echo $row['startMonth'];?>" name="startMonth">
 			</div>
-			<div class="input-group">
+			<div class="input-group-Day">
 				<label>Please Enter Start Date</label>
 				<input id="startDate"  type = "number"  value="<?php echo $row['startDate'];?>"name="startDate">
 			</div>
-			<div class="input-group">
+			<div class="input-group-Year">
 				<label>Please Enter End Year</label>
 				<input id="endYear" type = "number" value="<?php echo $row['endYear'];?>" name="endYear">
 			</div>
-			<div class="input-group">
+			<div class="input-group-Month">
 				<label>Please Enter End Month</label>
 				<input id="endMonth" type = "number"  value="<?php echo $row['endMonth'];?>"name="endMonth">
 			</div>
-			<div class="input-group">
+			<div class="input-group-Day">
 				<label>Please Enter End Date</label>
 				<input id="endDate" type = "number"  value="<?php echo $row['endDate'];?>"name="endDate">
 			</div>
-			<div class="input-group">
+			<div class="input-group-Percent">
 				<label>Please Enter Completed Percentage</label>
 				<input id="percent" type = "number" value="<?php echo $row['percent'];?>" name="percent">
 			</div>

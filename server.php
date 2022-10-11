@@ -36,9 +36,6 @@
 		if ($password_1 != $password_2){
 			array_push($errors,"Passwords must match");
 		}
-		#if (strlen($password_1) < 5){
-		#	array_push($errors,"Password too short, must be longer than 4 characters");
-		#}
 		if (count($errors) == 0) {
 			$password = md5($password_1);
 			$sql = "INSERT INTO users (username,email,password) VALUES ('$username', '$email', '$password')";
@@ -87,18 +84,6 @@
 		unset($_SESSION['username']);
 		header('location:login.php');
 	}
-	/*if(isset($_POST['getDetails'])){
-		?>
-		<script type="text/javascript">
-			console.log("Works");
-			var selected = getSelected();
-			//document.cookie= "selectedcookie = "+selected;
-			console.log(selected);
-		</script>
-		<?php
-			$selected = $_COOKIE['selectedcookie'];
-			echo $selected;
-	}*/
 	if(isset($_POST['postTask'])){
 		$taskName = $_POST['taskName'];
 		$startYear = $_POST['startYear'];

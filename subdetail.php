@@ -104,14 +104,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ClubManagementSystem</title>
+	<title>TaskManagementSystem</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	
 	<div id="header" class="header">
-		<h2>HomePage</h2>
+		<h2>SubTask Details</h2>
 	</div>
 	<div class="content">
 		<?php if (isset($_SESSION['success'])): ?>

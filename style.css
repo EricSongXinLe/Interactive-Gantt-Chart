@@ -23,8 +23,11 @@ body{
 	border-radius: 10px 10px 10px 10px;
 	padding: 20px;
 }
+.NewTask{
+	display:none;
+}
 form {
-	width: 50%;
+	width: 55%;
 	margin: 50px auto;
 	padding: 20px;
 	background: #c1c1c1;
@@ -41,6 +44,64 @@ form {
 .input-group {
 	margin: 10px 0px 10px 0px;
 }
+.input-group-Year {
+	margin: 10px 0px 10px 0px;
+	text-align: center;
+    width: 33%;
+	float: left;
+}
+.input-group-Month {
+	margin: 10px 0px 10px 0px;
+	text-align: center;
+    width: 33%;
+	float: left;
+	
+}
+.input-group-Day {
+	margin: 10px 0px 10px 0px;
+	text-align: center;
+    width: 33%;
+	float: right;
+}
+.input-group-Year label{
+	display:block;
+	text-align: left;
+	margin: 5px;
+}
+.input-group-Year input{
+	height: 20px;
+	width: 90%;
+	padding: 10px 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+.input-group-Month label{
+	display:block;
+	text-align: left;
+	margin: 5px;
+}
+.input-group-Month input{
+	height: 20px;
+	width: 90%;
+	padding: 10px 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+.input-group-Day label{
+	display:block;
+	text-align: left;
+	margin: 5px;
+}
+.input-group-Day input{
+	height: 20px;
+	width: 95%;
+	padding: 10px 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
 .input-group label{
 	display:block;
 	text-align: left;
@@ -48,7 +109,23 @@ form {
 }
 .input-group input{
 	height: 20px;
-	width: 93%;
+	width: 98.5%;
+	padding: 10px 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+.input-group-Percent label{
+	display:block;
+	text-align: left;
+	margin: 5px;
+}
+.navigation-bar {
+	text-align: center;
+}
+.input-group-Percent input{
+	height: 20px;
+	width: 8%;
 	padding: 10px 10px;
 	font-size: 16px;
 	border-radius: 5px;
