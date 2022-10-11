@@ -139,7 +139,14 @@ form {
 	background: #5F9EA0;
 	border: 1px solid gray;
 	border-radius: 5px; 
+	transition: 0.75s;
 }
+
+.btn:hover {
+	background: #3c763d;
+	border: 1px solid gray;
+}
+
 .error {
 	width:92%;
 	margin:0px auto;
