@@ -3,11 +3,14 @@
 <html>
 <head>
 	<title>Sign up</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-	<div id="header" class="header">
-		<h2>Register</h2>
+<body class = "bg-light">
+	<div class="navbar navbar-light bg-white px-3">
+		<div class="container">
+			<a class="navbar-brand">Sign in</a>
+		</div>
 	</div>
 	<form method = "post" action="register.php">
 		<?php include('errors.php'); ?>
@@ -27,8 +30,8 @@
 			<label>Confirm Password</label>
 			<input type = "password" name="password_2">
 		</div>
-		<div class="input-group">
-			<button type="submit" name="register" class="btn">Sign up</button>
+		<div>
+			<button type="submit" name="register" class="btn btn-outline-danger">Sign up</button>
 		</div>
 		<p>
 			Already a member? <a href = "login.php">Sign in</a>

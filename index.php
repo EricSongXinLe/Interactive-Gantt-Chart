@@ -7,115 +7,127 @@
 <html>
 <head>
 	<title>ClubManagementSystem</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-	
-	<div id="header" class="header">
-		<h2>HomePage</h2>
-	</div>
-	<div class="content">
-		<?php if (isset($_SESSION['success'])): ?>
-			<div class="error success">
-				<h3>
-					<?php
-						echo $_SESSION['success'];
-						unset($_SESSION['success']);
-					?>
-				</h3>
-		<?php endif ?>
-		<?php if (isset($_SESSION["username"])): ?>
-			<p>Welcome, <strong><?php echo $_SESSION['username']; ?></strong> !</p>
-			<p><a href="index.php?logout='1'" style="color: red;">Logout</a></p>
-		<?php endif ?>
-		<div class = "navigation-bar">
-			<button type="button" name="getDetails" class="btn" onclick="getData()">GetTaskDetails</button>
-			<button type="button" name="displayNew" class="btn" onclick="$('#board').slideDown()">Add New Task</button>
+<body class="bg-light">
+	<div class="navbar navbar-light bg-white px-3">
+		<div class="container">
+			<a class="navbar-brand">Home Page</a>
+			<a href="index.php?logout='1'" class="btn btn-outline-danger">Log Out</a>
 		</div>
 	</div>
-	<div id="chart_div" align = 'center'>
-		<script type="text/javascript" src="loader.js"></script>
-		<script type="text/javascript" src="jquery.min.js"></script>
-			<script type="text/javascript">
-			google.charts.load('current', {'packages':['gantt']});
-			google.charts.setOnLoadCallback(drawChart);
-			var chart;
-		    var data;
-			function drawChart() {
-				data = new google.visualization.DataTable();
-				data.addColumn('string', 'Task ID');
-				data.addColumn('string', 'Task Name');
-				data.addColumn('string', 'Resource');
-				data.addColumn('date', 'Start Date');
-				data.addColumn('date', 'End Date');
-				data.addColumn('number', 'Duration');
-				data.addColumn('number', 'Percent Complete');
-				data.addColumn('string', 'Dependencies');
-				data.addRows([
-					<?php 
-						global $db;
-						$sql = "SELECT * FROM tasks";
-						$stmt = mysqli_query($db,$sql);
-						while($datarows = mysqli_fetch_assoc($stmt)){
-							$datarows['startMonth'] = $datarows['startMonth']-1;
-							$datarows['endMonth'] = $datarows['endMonth']-1;
-							echo "['" . $datarows['id']. " ','" . $datarows['taskName'] . "'," .'null'. ", new Date(" . $datarows['startYear']. "," . $datarows['startMonth']. "," . $datarows['startDate']. "),
-									new Date(" . $datarows['endYear']. "," . $datarows['endMonth']. "," . $datarows['endDate']. "), ". 'null' . "," . $datarows['percent']. "," .'null'. "],";
-						}
-
-					?>
-				]);
-
-				var options = {
-					height: 400,
-					width: 1200,
-					gantt: {
-						criticalPathEnabled: false,
-						labelStyle:{
-							fontName: "comic sans ms",
-							fontSize: 15
-						},
-						trackHeight: 80,
-						backgroundColor: '#faead3'
-					}
-
-				};
-				chart = new google.visualization.Gantt(document.getElementById('chart_div'));
-				chart.draw(data, options);
-				//console.log(data['Wf'][0]['c'][0]);
-			}
-			function getSelected() {
-				
-			 
-				var a = chart.getSelection();
-				if(a.length == 0) {
-					return -1;
-				}
-				
-				
-				return data['Wf'][a[0]["row"]]['c'][0]["v"];
-			}
-			//get details
-			function getData(){
-				var id=getSelected();
-				if(id==-1){
-					alert('Please Select a Project!');
-					return;
-				}
-				
-				window.location.href ='detail.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>";
-				return;
-				
-			}
+	<div class="container">
+		<div class="row my-5">
+			<div class="col-3">
+				<div class="card d-flex flex-column border-0 shadow p-3">
+					<div class="box-row my-1 p-2 rounded bg-primary text-white" id="select-gantt">View Gantt</div>
+					<div class="box-row my-1 p-2 rounded" id="select-add">Add New Task</div>
+					<div class="box-row my-1 p-2 rounded" id="select-detail">View Task Details</div>
+					<div class="box-row my-1 p-2 rounded" id="select-subtask">View Subtasks</div>
+					
+				</div>
+			</div>
 			
-			function goToPostTask(){
-			   window.location.href ='index.php';
-			}
-		</script>
-		
-		
-		
+			<div>
+				<div id="chart_div">
+					<script type="text/javascript" src="loader.js"></script>
+					<script type="text/javascript" src="jquery.min.js"></script>
+						<script type="text/javascript">
+						google.charts.load('current', {'packages':['gantt']});
+						google.charts.setOnLoadCallback(drawChart);
+						var chart;
+						var data;
+						function drawChart() {
+							data = new google.visualization.DataTable();
+							data.addColumn('string', 'Task ID');
+							data.addColumn('string', 'Task Name');
+							data.addColumn('string', 'Resource');
+							data.addColumn('date', 'Start Date');
+							data.addColumn('date', 'End Date');
+							data.addColumn('number', 'Duration');
+							data.addColumn('number', 'Percent Complete');
+							data.addColumn('string', 'Dependencies');
+							data.addRows([
+								<?php 
+									global $db;
+									$sql = "SELECT * FROM tasks";
+									$stmt = mysqli_query($db,$sql);
+									while($datarows = mysqli_fetch_assoc($stmt)){
+										$datarows['startMonth'] = $datarows['startMonth']-1;
+										$datarows['endMonth'] = $datarows['endMonth']-1;
+										echo "['" . $datarows['id']. " ','" . $datarows['taskName'] . "'," .'null'. ", new Date(" . $datarows['startYear']. "," . $datarows['startMonth']. "," . $datarows['startDate']. "),
+												new Date(" . $datarows['endYear']. "," . $datarows['endMonth']. "," . $datarows['endDate']. "), ". 'null' . "," . $datarows['percent']. "," .'null'. "],";
+									}
+
+								?>
+							]);
+
+							var options = {
+								height: 400,
+
+								gantt: {
+									criticalPathEnabled: false,
+									labelStyle:{
+										fontName: "comic sans ms",
+										fontSize: 15
+									},
+									trackHeight: 80,
+									backgroundColor: '#faead3'
+								}
+
+							};
+							chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+							chart.draw(data, options);
+							//console.log(data['Wf'][0]['c'][0]);
+						}
+						function getSelected() {
+							
+						
+							var a = chart.getSelection();
+							if(a.length == 0) {
+								return -1;
+							}
+							
+							
+							return data['Wf'][a[0]["row"]]['c'][0]["v"];
+						}
+						//get details
+						function getData(){
+							var id=getSelected();
+							if(id==-1){
+								alert('Please Select a Task!');
+								return;
+							}
+							
+							window.location.href ='detail.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>";
+							return;
+							
+						}
+						function goSubtask(){
+							var id=getSelected();
+							if(id==-1){
+								alert('Please Select a Task!');
+								return;
+							}
+							
+							window.location.href ='subtask.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>";
+							return;
+							
+						}
+						
+						function goToPostTask(){
+						window.location.href ='index.php';
+						}
+					</script>
+					
+					
+					
+				</div>
+			</div>
+		</div>
 	</div>
+	
 	
 	<form  class = "NewTask" method = "post" action="index.php" id="board">
 			<?php include('errors.php'); ?>
@@ -168,13 +180,11 @@
 				?>
 			
 			<div class="input-group">
-				<button  id="addbtn" type="submit" name="postTask" class="btn">PostTask</button><span>	
-				<button type="button" name="displayNew" class="btn" onclick="$('#board').slideUp()">Hide</button>
+				<button  type="submit" name="postTask" class="btn btn-outline-danger">PostTask</button><span>	
 			</div>
-	      </form>	
+	      </form>
 	
-	 
 	
-	 
-</body>
+		<script type="text/javascript" src="script.js"></script>
+	</body>
 </html>

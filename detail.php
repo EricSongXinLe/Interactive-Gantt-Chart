@@ -115,30 +115,15 @@
 <html>
 <head>
 	<title>ClubManagementSystem</title>
+	<script src="jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
-	
-	<div id="header" class="header">
-		<h2>HomePage</h2>
-	</div>
-	<div class="content">
-		<?php if (isset($_SESSION['success'])): ?>
-			<div class="error success">
-				<h3>
-					<?php
-						echo $_SESSION['success'];
-						unset($_SESSION['success']);
-					?>
-				</h3>
-		<?php endif ?>
-		<?php if (isset($_SESSION["username"])): ?>
-			<p>Welcome, <strong><?php echo $_SESSION['username']; ?></strong> !</p>
-			<p><a href="index.php?logout='1'" style="color: red;">Logout</a></p>
-		<?php endif ?>
-		<div class="navigation-bar">
-			<a href = "subtask.php?id=<?php echo $id?>"><button    type="submit" name="subTask" class="btn">View subtasks</button></a>
+<body class="bg-light">
+	<div class="navbar navbar-light bg-white px-3">
+		<div class = "container">
+			<a class="navbar-brand">Task Details</a>
+			<a href="index.php?logout='1'" class="btn btn-outline-danger">Log Out</a>
 		</div>
 	</div>
 	<form method = "post" action="detail.php?id=<?php echo $id;?>&username=$_SESSION['username']">
@@ -205,10 +190,10 @@
 			<?php
 			}
 			?>
-			<div class="input-group">
-				<button    type="submit" name="UpdateTask" class="btn">UpdateTask</button><span>	
-				<button    type="submit" name="delTask" class="btn">DelTask</button><span>	
-				<button    type="submit" name="goIndex" class="btn">Back</button><span>	
+			<div>
+				<button    type="submit" name="UpdateTask" class="btn btn-outline-danger">UpdateTask</button><span>	
+				<button    type="submit" name="delTask" class="btn btn-outline-danger">DelTask</button><span>	
+				<button    type="submit" name="goIndex" class="btn btn-outline-danger">Back</button><span>	
 			</div>
 	      </form>	
 </body>
