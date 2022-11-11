@@ -8,18 +8,7 @@
 
 	$db = mysqli_connect('localhost','root','','club-registration') or die("Connection Failed" .mysql_connect_error());
 
-    $loginQ = "SELECT * FROM users WHERE username='$username' ";
-	$result = mysqli_query($db, $loginQ);
-	if (false===$result){
-		printf("error: %s\n", mysqli_error($db));
-	}
-	if(mysqli_num_rows($result) == 1){
-		//Login Success
-		$_SESSION['username'] = $username;
-		//header('location: index.php');
-	}else{
-		array_push($errors,"Wrong Combination");
-	}
+
     
     $id=$_GET['id'];
 	
@@ -32,8 +21,7 @@
 		 $sql = "SELECT * FROM tasks WHERE id={$id} limit 1";
 		 $result = $db->query($sql);
 		 $total=$result->num_rows;
-		 if ($result->num_rows > 0) {			 
-			// 输出数据				
+		 if ($result->num_rows > 0) {			 				
 			$row = $result->fetch_assoc();				 
 		}
 	}
@@ -74,7 +62,7 @@
 				if(count($errors)==0){
 					$sql = "update tasks set taskName='{$taskName}',startYear='{$startYear}',startMonth='{$startMonth}',startDate='{$startDate}',endYear='{$endYear}',endMonth='{$endMonth}',endDate='{$endDate}',percent='{$percent}' where id='{$id}'";
 					$query = mysqli_query($db,$sql);
-					$sql = "delete from  usertask where taskID='{$id}'";
+					$sql = "delete from usertask where taskID='{$id}'";
 					$query = mysqli_query($db,$sql);
 					foreach ($_POST['selectedPerson'] as $i){
 						$sql = "INSERT INTO usertask (userid,taskid) VALUES ($i,$id)";
@@ -82,12 +70,6 @@
 						if (false===$query) {
 							printf("error: %s\n", mysqli_error($db));
 						}
-					}
-					if (false===$query) {
-						 array_push($errors,"UpdateFailed");
-						 
-					}else{					
-						header('location:detail.php?id='.$id.'&username='.$_SESSION["username"]);	
 					}
 				}
 						

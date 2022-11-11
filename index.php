@@ -28,7 +28,12 @@
 					
 				</div>
 			</div>
-			
+			<div class="col-5">
+				<div class="card d-flex flex-column border-0 shadow p-3">
+					<label>Welcome</label>
+					<label>Your have the following tasks: </label>
+				</div>
+			</div>
 			<div>
 				<div id="chart_div">
 					<script type="text/javascript" src="loader.js"></script>

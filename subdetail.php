@@ -8,20 +8,9 @@
 
 	$db = mysqli_connect('localhost','root','','club-registration') or die("Connection Failed" .mysql_connect_error());
 
-    $loginQ = "SELECT * FROM users WHERE username='$username' ";
-	$result = mysqli_query($db, $loginQ);
-	if (false===$result){
-		printf("error: %s\n", mysqli_error($db));
-	}
-	if(mysqli_num_rows($result) == 1){
-		//Login Success
-		$_SESSION['username'] = $username;
-		//header('location: index.php');
-	}else{
-		array_push($errors,"Wrong Combination");
-	}
     
     $id=$_GET['id'];
+	$returnid = $_GET['returnid'];
 	
 	
 	if(!$id){
@@ -73,12 +62,6 @@
 				if(count($errors)==0){
 					$sql = "update subtasks set subTaskName='{$subTaskName}',startYear='{$startYear}',startMonth='{$startMonth}',startDate='{$startDate}',endYear='{$endYear}',endMonth='{$endMonth}',endDate='{$endDate}',percent='{$percent}' where id='{$id}'";
 					$query = mysqli_query($db,$sql);
-					if (false===$query) {
-						 array_push($errors,"UpdateFailed");
-						 
-					}else{					
-						header('location:index.php');	
-					}
 				}
 						
 		 
@@ -95,8 +78,7 @@
 				}
 	}
 	if(isset($_POST['goIndex'])){
-		header('location:subtask.php?id='.$id.'&username='.$_SESSION["username"]);	
-				 
+		header('location:index.php?');
 	}
 	
 	 

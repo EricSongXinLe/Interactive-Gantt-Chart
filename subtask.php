@@ -84,7 +84,7 @@
 						}
 						
 						
-						return data['Wf'][a[0]["row"]]['c'][0]["v"]; //special code that reveals the id of the subtask, lol
+						return data['Wf'][a[0]["row"]]['c'][0]["v"]; //special code that returns the id of the subtask
 					}
 					function getData(){
 						var id=getSelected();
@@ -92,7 +92,7 @@
 							alert('Please Select a Subtask!');
 							return;
 						}
-						window.location.href ='subdetail.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>";
+						window.location.href ='subdetail.php?id='+id+"&username=<?php echo $_SESSION['username']; ?>"+'&returnid=<?php echo $id;?>';
 						return;
 						
 					}

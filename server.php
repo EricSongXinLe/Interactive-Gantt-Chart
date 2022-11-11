@@ -15,7 +15,7 @@
 	$percent = 0;
 
 	//connect to DB
-	$db = mysqli_connect('localhost','root','','club-registration') or die("Connection Failed" .mysql_connect_error());
+	$db = mysqli_connect('localhost','root','','club-registration');
 
 	if(isset($_POST['register'])){ //Register button CLICK event
 		$username = $_POST['username'];
