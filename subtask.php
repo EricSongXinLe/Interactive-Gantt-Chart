@@ -141,7 +141,7 @@
 				<label>Please Enter Completed Percentage</label>
 				<input id="percent" type = "number" name="percent">
 			</div>
-			<button  id="addbtn" type="submit" name="postSubTask" class="btn btn-outline-danger">PostSubTask</button><span>
+			<button  id="addbtn" onclick="window.location.href = 'subtask.php?id=<?php echo $id ?>';" type="submit" name="postSubTask" class="btn btn-outline-danger">PostSubTask</button><span>
 	      </form>	
 	<script type="text/javascript" src="script.js"></script>
 </body>

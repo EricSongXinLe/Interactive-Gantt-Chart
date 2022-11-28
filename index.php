@@ -25,13 +25,12 @@
 					<div class="box-row my-1 p-2 rounded" id="select-add">Add New Task</div>
 					<div class="box-row my-1 p-2 rounded" id="select-detail">View Task Details</div>
 					<div class="box-row my-1 p-2 rounded" id="select-subtask">View Subtasks</div>
-					
 				</div>
 			</div>
 			<div class="col-5">
 				<div class="card d-flex flex-column border-0 shadow p-3">
-					<label>Welcome</label>
-					<label>Your have the following tasks: </label>
+					<label>Welcome!</label>
+					<label>Check out the tasks that our Computer Science Club has!</label>
 				</div>
 			</div>
 			<div>

@@ -22,8 +22,6 @@
 		$email = $_POST['email'];
 		$password_1 = $_POST['password_1'];
 		$password_2 = $_POST['password_2'];
-			//VALIDATION
-		#$errors=null;
 		if (empty($username)){
 			array_push($errors,"Username is required");
 		}
@@ -102,8 +100,8 @@
 		if (empty($startMonth)){
 			array_push($errors,"Start Month is required");
 		}
-		if (empty($startDate)){
-			array_push($errors,"Start Date is required");
+		if (empty($startDate) or $startDate <0 or $startDate > 31){
+			array_push($errors,"Start Date is not valid/or empty");
 		}
 		if (empty($endYear)){
 			array_push($errors,"End Year is required");
