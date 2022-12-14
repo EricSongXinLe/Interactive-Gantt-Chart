@@ -110,40 +110,40 @@
 			<input id="taskid" type = "hidden" value="<?php echo $row['id'];?>" name="taskid">
 			<input  type = "hidden" value="<?php echo $_SESSION["username"];?>" name="username">
 			<div class="input-group">
-				<label>Please Enter Subtask Name</label>
+				<label>Subtask Name</label>
 				<input id="subTaskName" type = "text" value="<?php echo $row['subTaskName'];?>" name="subTaskName">
 			</div>
-			<div class="input-group">
-				<label>Please Enter Start Year</label>
+			<div class="input-group-Year">
+				<label>Start Year</label>
 				<input id="startYear" type = "number" value="<?php echo $row['startYear'];?>" name="startYear">
 			</div>
-			<div class="input-group">
-				<label>Please Enter Start Month</label>
+			<div class="input-group-Month">
+				<label>Start Month</label>
 				<input id="startMonth"  type = "number" value="<?php echo $row['startMonth'];?>" name="startMonth">
 			</div>
-			<div class="input-group">
-				<label>Please Enter Start Date</label>
+			<div class="input-group-Day">
+				<label>Start Date</label>
 				<input id="startDate"  type = "number"  value="<?php echo $row['startDate'];?>"name="startDate">
 			</div>
-			<div class="input-group">
-				<label>Please Enter End Year</label>
+			<div class="input-group-Year">
+				<label>End Year</label>
 				<input id="endYear" type = "number" value="<?php echo $row['endYear'];?>" name="endYear">
 			</div>
-			<div class="input-group">
-				<label>Please Enter End Month</label>
+			<div class="input-group-Month">
+				<label>End Month</label>
 				<input id="endMonth" type = "number"  value="<?php echo $row['endMonth'];?>"name="endMonth">
 			</div>
-			<div class="input-group">
-				<label>Please Enter End Date</label>
+			<div class="input-group-Day">
+				<label>End Date</label>
 				<input id="endDate" type = "number"  value="<?php echo $row['endDate'];?>"name="endDate">
 			</div>
-			<div class="input-group">
-				<label>Please Enter Completed Percentage</label>
+			<div class="input-group-Percent">
+				<label>Completed Percentage</label>
 				<input id="percent" type = "number" value="<?php echo $row['percent'];?>" name="percent">
 			</div>
 			<div>
 				<button    type="submit" name="UpdateTask" class="btn btn-outline-danger">Update Subtask</button><span>	
-				<button    type="submit" name="delTask" class="btn btn-outline-danger">Del Subtask</button><span>	
+				<button    type="submit" name="delTask" class="btn btn-outline-danger">Delete Subtask</button><span>	
 				<button    type="submit" name="goIndex" class="btn btn-outline-primary">Back</button><span>	
 				 
 				 

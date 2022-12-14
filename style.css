@@ -29,7 +29,7 @@
 	display:none;
 }
 form {
-	width: 55%;
+	width: 30%;
 	margin: 50px auto;
 	padding: 20px;
 	background: #ececec;
@@ -128,7 +128,7 @@ form {
 }
 .input-group-Percent input{
 	height: 20px;
-	width: 8%;
+	width: 15%;
 	padding: 10px 10px;
 	font-size: 16px;
 	border-radius: 5px;

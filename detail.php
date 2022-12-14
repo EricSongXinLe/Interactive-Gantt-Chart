@@ -117,37 +117,38 @@
 			<input id="taskid" type = "hidden" value="<?php echo $row['id'];?>" name="taskid">
 			<input  type = "hidden" value="<?php echo $_SESSION["username"];?>" name="username">
 			<div class="input-group">
-				<label>Please Enter Task Name</label>
+				<label>Task Name</label>
 				<input id="taskName" type = "text" value="<?php echo $row['taskName'];?>" name="taskName">
 			</div>
 			<div class="input-group-Year">
-				<label>Please Enter Start Year</label>
+				<label>Start Year</label>
 				<input id="startYear" type = "number" value="<?php echo $row['startYear'];?>" name="startYear">
 			</div>
 			<div class="input-group-Month">
-				<label>Please Enter Start Month</label>
+				<label>Start Month</label>
 				<input id="startMonth"  type = "number" value="<?php echo $row['startMonth'];?>" name="startMonth">
 			</div>
 			<div class="input-group-Day">
-				<label>Please Enter Start Date</label>
+				<label>Start Date</label>
 				<input id="startDate"  type = "number"  value="<?php echo $row['startDate'];?>"name="startDate">
 			</div>
 			<div class="input-group-Year">
-				<label>Please Enter End Year</label>
+				<label>End Year</label>
 				<input id="endYear" type = "number" value="<?php echo $row['endYear'];?>" name="endYear">
 			</div>
 			<div class="input-group-Month">
-				<label>Please Enter End Month</label>
+				<label>End Month</label>
 				<input id="endMonth" type = "number"  value="<?php echo $row['endMonth'];?>"name="endMonth">
 			</div>
 			<div class="input-group-Day">
-				<label>Please Enter End Date</label>
+				<label>End Date</label>
 				<input id="endDate" type = "number"  value="<?php echo $row['endDate'];?>"name="endDate">
 			</div>
 			<div class="input-group-Percent">
-				<label>Please Enter Completed Percentage</label>
+				<label>Completed Percentage</label>
 				<input id="percent" type = "number" value="<?php echo $row['percent'];?>" name="percent">
 			</div>
+			<label>Involved memebers: </label>
 			<?php
 			$checked = "SELECT users.*  from users,tasks,usertask where users.id = usertask.userid and tasks.id = usertask.taskid and tasks.id = {$id}";
 			$findusers = "SELECT * FROM users";

@@ -68,7 +68,7 @@
 							]);
 
 							var options = {
-								height: 400,
+								height: 600,
 
 								gantt: {
 									criticalPathEnabled: false,
@@ -137,38 +137,38 @@
 			<?php include('errors.php'); ?>
 			<input id="taskid" type = "hidden" name="taskid">
 			<div class="input-group">
-				<label>Please Enter Task Name</label>
+				<label>Task Name</label>
 				<input id="taskName" type = "text" name="taskName">
 			</div>
 			<div class="input-group-Year">
-				<label>Please Enter Start Year</label> 
+				<label>Start Year</label> 
 				<input id="startYear" type = "number" name="startYear">
 			</div>
 			<div class="input-group-Month">
-				<label>Please Enter Start Month</label>
+				<label>Start Month</label>
 				<input id="startMonth"  type = "number" name="startMonth">
 			</div>
 			<div class="input-group-Day">
-				<label>Please Enter Start Date</label>
+				<label>Start Date</label>
 				<input id="startDate"  type = "number" name="startDate">
 			</div>
 			<div class="input-group-Year">
-				<label>Please Enter End Year</label>
+				<label>End Year</label>
 				<input id="endYear" type = "number" name="endYear">
 			</div>
 			<div class="input-group-Month">
-				<label>Please Enter End Month</label>
+				<label>End Month</label>
 				<input id="endMonth" type = "number" name="endMonth">
 			</div>
 			<div class="input-group-Day">
-				<label>Please Enter End Date</label>
+				<label>End Date</label>
 				<input id="endDate" type = "number" name="endDate">
 			</div>
 			<div class="input-group-Percent">
-				<label>Please Enter Completed Percentage</label>
+				<label>Completed Percentage</label>
 				<input id="percent" type = "number" name="percent">
 			</div>
-			<label>Please Select members of the Task: </label>
+			<label> Select members of the Task: </label>
 			<br>
 				<?php
 					$findusers = "SELECT * FROM users";
