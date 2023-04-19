@@ -10,7 +10,6 @@
 
     
     $id=$_GET['id'];
-	$returnid = $_GET['returnid'];
 	
 	
 	if(!$id){
@@ -63,6 +62,14 @@
 					$sql = "update subtasks set subTaskName='{$subTaskName}',startYear='{$startYear}',startMonth='{$startMonth}',startDate='{$startDate}',endYear='{$endYear}',endMonth='{$endMonth}',endDate='{$endDate}',percent='{$percent}' where id='{$id}'";
 					$query = mysqli_query($db,$sql);
 				}
+				$row['taskName']=$taskName;
+				$row['startYear']=$startYear;
+				$row['startMonth']=$startMonth;
+				$row['startDate']=$startDate;
+				$row['endYear']=$endYear;
+				$row['endMonth']=$endMonth;
+				$row['endDate']=$endDate;
+				$row['percent']=$percent;
 						
 		 
 	}

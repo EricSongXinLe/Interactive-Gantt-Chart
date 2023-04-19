@@ -71,6 +71,15 @@
 							printf("error: %s\n", mysqli_error($db));
 						}
 					}
+					$row['taskName']=$taskName;
+					$row['startYear']=$startYear;
+					$row['startMonth']=$startMonth;
+					$row['startDate']=$startDate;
+					$row['endYear']=$endYear;
+					$row['endMonth']=$endMonth;
+					$row['endDate']=$endDate;
+					$row['percent']=$percent;
+
 				}
 						
 		 

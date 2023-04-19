@@ -94,23 +94,23 @@
 		if (empty($taskName)){
 			array_push($errors,"Task name is required");
 		}
-		if (empty($startYear)){
-			array_push($errors,"Start Year is required");
+		if (empty($startYear) or $startYear <0){
+			array_push($errors,"Start Year is not valid/or is empty");
 		}
-		if (empty($startMonth)){
-			array_push($errors,"Start Month is required");
+		if (empty($startMonth)or $startMonth <0 or $startMonth > 12){
+			array_push($errors,"Start Month is not valid/or is empty");
 		}
 		if (empty($startDate) or $startDate <0 or $startDate > 31){
-			array_push($errors,"Start Date is not valid/or empty");
+			array_push($errors,"Start Date is not valid/or is empty");
 		}
-		if (empty($endYear)){
-			array_push($errors,"End Year is required");
+		if (empty($endYear) or $endYear <0){
+			array_push($errors,"End Year is not valid/or is empty");
 		}
-		if (empty($endMonth)){
-			array_push($errors,"End Month is required");
+		if (empty($endMonth) or $endMonth <0 or $endMonth > 12){
+			array_push($errors,"End Month is not valid/or is empty");
 		}
-		if (empty($endDate)){
-			array_push($errors,"End Date is required");
+		if (empty($endDate) or $endDate <0 or $endDate > 31){
+			array_push($errors,"End Date is not valid/or is empty");
 		}
 		if (empty($percent)){
 			$percent = 0;
@@ -125,7 +125,7 @@
 			$query = $db->query($getTaskID);
 			$row = $query->fetch_assoc();
 			$currentID = $row["taskID"];
-			foreach ($_POST['selectedPerson'] as $i){
+			foreach ($_POST['selectedPerson'] as $i){ //insert into usertask table
 				$sql = "INSERT INTO usertask (userid,taskid) VALUES ($i,$currentID)";
 				$query = mysqli_query($db,$sql);
 				if (false===$query) {
